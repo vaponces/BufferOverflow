@@ -10,12 +10,10 @@
 #include <ctype.h>
 
 /*
-The original code was provided by  CPSC 526 Instructor.
-Minor modifications were added in the function readLineFromFd.
+The code was provided by  CPSC 526 Instructor.
+
 
 */
-
-
 // global variables nicely grouped
 struct {
     int port; // listening port
@@ -38,23 +36,13 @@ void die( const char * errorMessage, ...) {
 // read a line of text from file descriptor into provided buffer
 void readLineFromFd( int fd, char * buff) {
     char * ptr = buff;
-    //this is the variable that will check for 
-    int boundaryCheck=0;
     while(1) {
         // try to read in the next character from fd, exit loop on failure
         if( read( fd, ptr, 1) < 1) break;
         // character stored, now advance ptr
         ptr ++;
-        //boundary check count
-        boundaryCheck++;
         // if last character read was a newline, exit loop
         if( * (ptr - 1) == '\n') break;
-        
-        if(boundaryCheck==31){
-        	//ends a line and prevents overflow
-        	*(ptr)='\n';
-        	break;
-        }
     }
     // rewind ptr to the last read character
     ptr --;
